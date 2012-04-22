@@ -23,6 +23,7 @@ def update(request):
 
 def get(request):
 	g = request.GET
+	allPosts = Craiglistpost.objects.all()
 	mean_min = g['mean_min']
 	mean_max = g['mean_max']
 	mean_exact = g['mean_exact']
@@ -32,12 +33,9 @@ def get(request):
 	range_min = g['range_min']
 	range_max = g['range_max']
 	search_for = g['search_for']
-	allPosts = Craiglistpost.objects.get()
 	category = search_for
 	if mean_exact != None:
-		mean_exact_counter = 0
-		for post in allPosts:
-			if
+		
 
 
 

@@ -7,7 +7,6 @@ from django.conf.urls.defaults import patterns, include, url
 urlpatterns = patterns('',
 	(r'^api/listing', 'data.views.create'),
 	(r'^api/listing/$', 'data.views.update'),
-	(r'^api/stats/search', 'data.views.get'),
     # Examples:
     # url(r'^$', 'craigslist.views.home', name='home'),
     # url(r'^craigslist/', include('craigslist.foo.urls')),

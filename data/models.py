@@ -10,3 +10,7 @@ class Craiglistpost(models.Model):
 	location_wide = models.TextField()
 	category = models.TextField()
 	query = models.TextField()
+
+
+
+
