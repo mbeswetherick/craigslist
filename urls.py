@@ -5,9 +5,11 @@ from django.conf.urls.defaults import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+	(r'^index', 'data.views.index'),
 	(r'^api/listing', 'data.views.create'),
 	(r'^api/listing/$', 'data.views.update'),
-	(r'^api/stats/search', 'data.views.get'),
+	(r'^api/stats/search', 'data.views.getStats'),
+	(r'^api/search', 'data.views.getExact'),
     # Examples:
     # url(r'^$', 'craigslist.views.home', name='home'),
     # url(r'^craigslist/', include('craigslist.foo.urls')),
