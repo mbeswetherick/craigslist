@@ -31,21 +31,25 @@ def update(request, listing_id):
 
 def getStats(request):
 	g = request.GET
-	mean_min = g.get('mean_min', None)
-	mean_max = g.get('mean_max', None)
-	mean_exact = g.get('mean_exact', None)
-	median_min = g.get('median_min', None)
-	median_max = g.get('median_max', None)
-	median_exact = g.get'median_exact', None)
-	range_min = g.get('range_min', None)
-	range_max = g.get('range_max', None)
-	search_for = g.get('search_for', None)
-	allPosts = Craiglistpost.objects.filter(category=search_for)
-	category = search_for
-	if mean_exact is not None:
-		mean_exact_counter = 0
-		for post in allPosts:
-			if
+	searched = g['search_for']
+	allSearchedPosts = Craiglistpost.objects.filter(category=searched)
+	if allSearchedPostS is None:
+		allSearchedPosts = Craiglistpost.objects.filter(location_wide=searched)
+	sumNumber = 0	
+	for post in allSearchedPosts:
+		sumNumber += post.price
+		# have to find min and max in order to find range
+	mean = sumNumber / len(allPosts)
+	hasExactMean = g.get('mean_exact', None)
+	numberOfPriceMatches = 0
+	for post in allSearchedPosts
+		if hasExactMean is not None:
+			if post.price == mean
+				numberOfPriceMatches += 1
+		else:
+			if post.price >= g['mean_min'] and post.price <= g['mean_max']	
+				numberOfPriceMatches += 1
+	return HttpResponse(simplejson.dumps(searched_for, numberOfPriceMatches))
 
 
 def getExact(request):
@@ -54,38 +58,28 @@ def getExact(request):
 	index = 0
 	#zen
 	for k,v in g:
-		posts[index] = Craiglistpost.objects.filter(k=v)
+		if k == 'price_min' or 'price_max' or 'price_max':
+			pass
+		else:
+			posts[index] = Craiglistpost.objects.filter(k=v)
 		index += 1
-	return HttpResponse(simplejson.dumps(posts))			
-
-
-
-	'''	SHITTY CODE
-	price_min = g.get('price_min', None)
-	price_max = g.get('price_max', None)
-	price_exact = g.get('price_exact',None)
-	title = g.get('title',None)
-	date_before = g.get('date_before', None)
-	date_after = g.get('date_after', None)
-	category = g.get('category', None)
-	location_wide = g.get('location_wide', None)
-	location_region = g.get'location_region', None)
-	location_specific = g.get('location_specific', None)
-	#to see which ones are actually filled out
-	filledOut = [price_min, price_max, price_exact, title, date_before, date_after, category, location_wide, location_region, location_specific]
-	query = []
+	#take care of price
+	#if price falls in between min and max or exact price exists, put those in
+	finalPosts = []
+	hasExactPrice = g.get('price_exact', none)
 	index = 0
-	#check to see which ones are filled out
-	for attribute in filledOut:
-		attribute is not None:
-			query[index] = attribute
-		index += 1
-	#allPosts = Craiglistpost.objects.filter(category=search_for)
-	posts = []
-	index = 0
-	keys = g.keys()
-	for attribute in query:
-	'''
+	if hasExactPrice is None:
+		for post in posts:
+			if post.price >= g[price_min] and post.price <= g[price_max]:
+				finalPosts[index] = post
+			index += 1
+	else:
+		for post in posts:	
+			if post.price == g[price_exact]:
+				finalPosts[index] = post
+			index += 1
+	return HttpResponse(simplejson.dumps(finalPosts))			
+
 
 
 
